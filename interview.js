@@ -63,6 +63,7 @@ function renderInterview() {
   const left = el('div');
   left.append(
     el('h3', '', 'AIと面接の練習をする'),
+    buildSafetyPanel(),
     el('p', 'why', '練習のしかたを選びます。迷ったら「基本の面接」でOKです。練習は10分で区切ります。質問が全部終わらなくても、時間になったら終わりでOKです。')
   );
   const fs = el('fieldset', 'choices');
@@ -74,35 +75,29 @@ function renderInterview() {
   const pre = el('pre'); det.appendChild(pre);
   left.appendChild(det);
 
-  // 右：スマホで声／PCで文字
+  // 右：メインは「PCでテキスト練習」。音声（スマホ）は応用として折りたたむ
   const right = el('div', 'interview-side');
-  const dev = el('fieldset', 'device-switch');
-  dev.appendChild(el('legend', 'sr-only', '練習の方法'));
-  const touch = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
-  [['phone', '📱 スマホで声で練習'], ['pc', '💻 PCで文字で練習']].forEach(([v, text]) => {
-    const lab = el('label', 'device-opt');
-    const inp = el('input'); inp.type = 'radio'; inp.name = 'device'; inp.value = v;
-    inp.checked = v === (touch ? 'phone' : 'pc');
-    lab.append(inp, el('span', '', text));
-    dev.appendChild(lab);
-  });
-  const phonePane = el('div', 'device-pane');
+  const copyArea = el('div');
+  const steps = el('ol', 'pc-steps');
+  ['左で練習のしかたを選ぶ', '「練習用の指示をコピー」を押す', 'AIの新しい会話に貼り付けて送信する', '質問に、文字で答える（10分で区切ります）']
+    .forEach(t => steps.appendChild(el('li', '', t)));
+  const pcPane = el('div', 'pc-pane');
+  pcPane.append(el('p', 'check-cap', '💻 PCで文字で練習（メイン）'), steps, copyArea);
+
+  // 応用：音声で練習（スマホ・自宅向け）
+  const voice = el('details', 'voice-fold');
+  voice.append(el('summary', '', '応用：音声で練習する（スマホ・自宅向け）'));
   const qrBox = el('div', 'qr-card');
   const img = el('img'); img.width = 220; img.height = 220;
   const qname = el('p', '');
   qname.style.fontWeight = '700';
   qrBox.append(img, qname);
-  phonePane.append(
+  voice.append(
+    el('p', 'how', 'スマホでQRコードを読み取ると、練習用の指示をコピーできます。AIの音声会話で、声に出して練習できます。講座のあと、自宅で練習するときにも使えます。'),
     qrBox,
-    el('p', 'how', 'スマホでQRコードを読み取り、画面の案内に沿って進めます。声で練習するときは、イヤホンがあるとやりやすくなります。')
+    el('p', 'how', '🎧 声で練習するときは、イヤホンがあるとやりやすくなります（なくても大丈夫です。文字でも練習できます）。')
   );
-  const pcPane = el('div', 'device-pane');
-  const copyArea = el('div');
-  pcPane.append(
-    copyArea,
-    el('p', 'how', 'コピーした文章をAIに貼り付けて送信します。声で話したいときは、AIの音声会話も使えます。')
-  );
-  right.append(dev, phonePane, pcPane, makeTimer());
+  right.append(pcPane, voice, makeTimer());
 
   function update() {
     const k = fs.querySelector('input:checked').value;
@@ -113,14 +108,8 @@ function renderInterview() {
     pre.textContent = window.INTERVIEW_PROMPTS[k].text;
     copyArea.replaceChildren(makeCopy(() => window.INTERVIEW_PROMPTS[k].text, '練習用の指示をコピー'));
   }
-  function showDevice() {
-    const v = dev.querySelector('input:checked').value;
-    phonePane.hidden = v !== 'phone';
-    pcPane.hidden = v !== 'pc';
-  }
   fs.addEventListener('change', update);
-  dev.addEventListener('change', showDevice);
-  update(); showDevice();
+  update();
 
   root.append(left, right);
   return root;

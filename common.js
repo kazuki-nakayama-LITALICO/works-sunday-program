@@ -85,12 +85,33 @@ function modeFromQuery() {
   return hit ? hit.key : window.INTERVIEW_MODES[0].key;
 }
 
-// 面接練習の場所と持ち物の案内（練習画面・自習ガイドで共通）
-function buildEnvNote() {
+// 面接練習の場所の案内。withEarphone を true にすると、イヤホンの案内も付く（スマホ用ページ）
+function buildEnvNote(withEarphone) {
   const box = el('div', 'env-note');
-  box.append(
-    el('p', '', '📍 施設で練習するとき：他の利用者に配慮しつつ、スタッフの見える範囲で、部屋の隅に移動して練習してOKです。'),
-    el('p', '', '🎧 声で練習するとき：イヤホンがあると、やりやすくなります（なくても大丈夫です。文字でも練習できます）。')
-  );
+  box.append(el('p', '', '📍 施設で練習するとき：他の利用者に配慮しつつ、スタッフの見える範囲で、部屋の隅に移動して練習してOKです。'));
+  if (withEarphone) {
+    box.append(el('p', '', '🎧 声で練習するとき：イヤホンがあると、やりやすくなります（なくても大丈夫です。文字でも練習できます）。'));
+  }
+  return box;
+}
+
+// 練習のお約束（4点）。面接練習のタブの先頭に常に表示する
+function buildSafetyPanel() {
+  const box = el('section', 'safety');
+  box.setAttribute('aria-label', '練習のお約束');
+  box.appendChild(el('h4', '', '練習を、安心して続けるためのお約束'));
+  const ol = el('ol');
+  [
+    ['名前・住所・連絡先は、言いません。', '声でも、文字でも同じです。本名や会社名は仮名でかまいません。'],
+    ['実在の人や会社の悪口は、言いません。', ''],
+    ['つらくなったら、やめてOKです。', '答えたくない質問はパスでき、いつでも「待って」「終了」と伝えられます。'],
+    ['AIの評価は、参考のひとつです。', '気になることは、支援員に相談してください。']
+  ].forEach(([b, rest]) => {
+    const li = el('li');
+    li.append(el('b', '', b));
+    if (rest) li.append(document.createTextNode(rest));
+    ol.appendChild(li);
+  });
+  box.appendChild(ol);
   return box;
 }
