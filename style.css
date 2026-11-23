@@ -351,7 +351,6 @@ ol.checks li::before { content: counter(s); display: inline-grid; place-items: c
 .progress a[aria-current="step"] { background: var(--green); border-color: var(--green); color: #fff; }
 @media (prefers-color-scheme: dark) { .progress a[aria-current="step"] { color: #0d1a14; } }
 .progress .arrow { color: var(--sub); font-weight: 700; }
-.to-self { font-size: 14px; font-weight: 700; color: var(--green-deep); }
 header { flex-wrap: wrap; gap: 8px; }
 
 /* ワーク①の終わり：次のワークへ */
@@ -383,5 +382,4 @@ header { flex-wrap: wrap; gap: 8px; }
 .safety h2 { font-size: 18px; margin: 0 0 6px; }
 .safety ol { margin: 0; padding-left: 1.4em; line-height: 1.8; }
 .safety-sub { margin: 8px 0 0; font-size: 14px; color: var(--sub); }
-.entry.wide { grid-column: 1 / -1; }
 @media (max-width: 760px) { .interview-wrap { grid-template-columns: 1fr; } .progress a { padding: 6px 12px; font-size: 15px; } }
