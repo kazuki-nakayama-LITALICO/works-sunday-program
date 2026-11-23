@@ -377,6 +377,8 @@ header { flex-wrap: wrap; gap: 8px; }
 .safety ol { margin: 0; padding-left: 1.4em; line-height: 1.6; font-size: 14px; }
 .safety li b { margin-right: 4px; }
 .pc-pane { margin-bottom: 10px; }
+.pc-pane .warn { margin-top: 10px; font-size: 13px; }
+.logout-note { font-weight: 700; color: var(--ink); }
 .pc-steps { margin: 4px 0 10px; padding-left: 1.4em; font-size: 14px; line-height: 1.7; }
 .voice-fold { margin: 10px 0; padding: 6px 12px; font-size: 14px; }
 .voice-fold .how { margin: 8px 0; }

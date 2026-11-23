@@ -82,7 +82,8 @@ function renderInterview() {
   ['左で練習のしかたを選ぶ', '「練習用の指示をコピー」を押す', 'AIの新しい会話に貼り付けて送信する', '質問に、文字で答える（10分で区切ります）']
     .forEach(t => steps.appendChild(el('li', '', t)));
   const pcPane = el('div', 'pc-pane');
-  pcPane.append(el('p', 'check-cap', '💻 PCで文字で練習（メイン）'), steps, copyArea);
+  const logout = el('div', 'warn', '共用のパソコンでは、終わったら必ずAIからログアウトし、パソコンをシャットダウンしてください（履歴が残るためです）。');
+  pcPane.append(el('p', 'check-cap', '💻 PCで文字で練習（メイン）'), steps, copyArea, logout);
 
   // 応用：音声で練習（スマホ・自宅向け）
   const voice = el('details', 'voice-fold');

@@ -43,8 +43,17 @@ function aiOpenLinks() {
     link.rel = 'noopener noreferrer';
     row.appendChild(link);
   });
-  box.append(row, el('p', 'ai-open-note', '新しいタブで開きます。貼り付けて送信したら、このページに戻らなくても大丈夫です。'));
+  box.append(
+    row,
+    el('p', 'ai-open-note', '新しいタブで開きます。貼り付けて送信したら、このページに戻らなくても大丈夫です。'),
+    logoutNote()
+  );
   return box;
+}
+
+// 共用のパソコンを使うときの注意（会話の履歴は残るので、終わったらログアウトする）
+function logoutNote() {
+  return el('p', 'ai-open-note logout-note', '共用のパソコンでは、終わったら必ずAIからログアウトし、パソコンをシャットダウンしてください（学習オフにしても、会話の履歴は残ります）。');
 }
 
 // 面接の種類の選択肢を fieldset に作る。
