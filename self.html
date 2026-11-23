@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>ひとりで面接練習｜日曜プログラムワーク</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="work self">
+    <header>
+      <a class="brand" href="./">日曜プログラムワーク<span>AI活用講座</span></a>
+      <span class="badge">自習ガイド</span>
+    </header>
+    <h1><span class="mk">ひとりで、面接の練習を</span></h1>
+    <p class="lead">講座のあとに、自分のペースでAIと面接の練習ができます。はじめる前に、次の4つのお約束を読んでください。</p>
+
+    <section class="safety" aria-labelledby="safety-title">
+      <h2 id="safety-title">練習を、安心して続けるためのお約束</h2>
+      <ol>
+        <li><b>名前・住所・連絡先は、言いません。</b>声でも、文字でも同じです。本名や会社名は仮名でかまいません。</li>
+        <li><b>実在の人や会社の悪口は、言いません。</b></li>
+        <li><b>つらくなったら、やめてOKです。</b>答えたくない質問はパスでき、いつでも「待って」「終了」と伝えられます。</li>
+        <li><b>AIの評価は、参考のひとつです。</b>気になることは、支援員に相談してください。</li>
+      </ol>
+      <p class="safety-sub">練習は10分で区切ります。質問が全部終わらなくても、時間になったら終わりでOKです。</p>
+    </section>
+
+    <div id="panel" role="region" aria-label="面接練習"></div>
+
+    <footer>このページにはAIとの会話機能はありません。入力内容の取り扱いは、利用するAIサービスの規約・設定をご確認ください。使い慣れたAIに貼り付けて練習します。</footer>
+  </main>
+  <script src="prompt.js"></script><script src="common.js"></script><script src="interview.js"></script>
+  <script>document.getElementById('panel').appendChild(renderInterview());</script>
+</body>
+</html>
