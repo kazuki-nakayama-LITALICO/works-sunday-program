@@ -75,7 +75,7 @@ function renderInterview() {
   const pre = el('pre'); det.appendChild(pre);
   left.appendChild(det);
 
-  // 右：メインは「PCでテキスト練習」。音声（スマホ）は応用として折りたたむ
+  // 右：基本は「PCで文字で練習」。声で練習したい方は、スマホで声でも練習できる
   const right = el('div', 'interview-side');
   const copyArea = el('div');
   const steps = el('ol', 'pc-steps');
@@ -83,19 +83,18 @@ function renderInterview() {
     .forEach(t => steps.appendChild(el('li', '', t)));
   const pcPane = el('div', 'pc-pane');
   const logout = el('div', 'warn', '共用のパソコンでは、終わったら必ずAIからログアウトし、パソコンをシャットダウンしてください（履歴が残るためです）。');
-  pcPane.append(el('p', 'check-cap', '💻 PCで文字で練習（メイン）'), steps, copyArea, logout);
+  pcPane.append(el('p', 'check-cap', '💻 PCで文字で練習（基本）'), steps, copyArea, logout);
 
-  // 応用：音声で練習（スマホ・自宅向け）
+  // 声で練習したい方へ（スマホ・イヤホン）
   const voice = el('details', 'voice-fold');
-  voice.append(el('summary', '', '応用：音声で練習する（スマホ・自宅向け）'));
+  voice.append(el('summary', '', '🎤 声で練習したい方へ（スマホ・イヤホン）'));
   const qrBox = el('div', 'qr-card');
   const img = el('img'); img.width = 220; img.height = 220;
   const qname = el('p', '');
   qname.style.fontWeight = '700';
   qrBox.append(img, qname);
   voice.append(
-    el('p', 'how', 'スマホでQRコードを読み取ると、練習用の指示をコピーできます。AIの音声会話で、声に出して練習できます。講座のあと、自宅で練習するときにも使えます。'),
-    qrBox,
+    el('p', 'how', 'スマホでQRコードを読み取ると、練習用の指示をコピーできます。AIの音声会話に貼り付けて、声に出して練習できます。講座中でも、講座のあと自宅でも使えます。'),    qrBox,
     el('p', 'how', '🎧 声で練習するときは、イヤホンがあるとやりやすくなります（なくても大丈夫です。文字でも練習できます）。')
   );
   right.append(pcPane, voice, makeTimer());
